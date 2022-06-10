@@ -7,3 +7,5 @@ This project is Rate Everything Web Application.
 - Vue3
 - TypeScript
 - Vite
+- Vue-Router
+- Scss
