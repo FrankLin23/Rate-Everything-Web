@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <router-view />
+    <AppProvider>
+      <router-view />
+    </AppProvider>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { AppProvider } from "./components/Application";
+</script>
 
 <style>
   html,

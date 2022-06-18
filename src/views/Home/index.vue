@@ -11,6 +11,9 @@
     >
       <Login />
     </n-modal>
+    <n-layout class="content-container">
+      <router-view />
+    </n-layout>
   </div>
 </template>
 
@@ -33,5 +36,9 @@
   .home-container {
     width: 100vw;
     height: 100vh;
+  }
+  .content-container {
+    width: 100%;
+    height: calc(100vh - 55px);
   }
 </style>
