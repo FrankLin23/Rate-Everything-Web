@@ -8,4 +8,8 @@ This project is Rate Everything Web Application.
 - TypeScript
 - Vite
 - Vue-Router
+- Pinia
+- Naive UI
+- Axios
 - Scss
+- js-cookie
