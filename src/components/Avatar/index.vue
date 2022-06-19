@@ -11,26 +11,34 @@
 </template>
 
 <script setup lang="ts">
-  import { useRouter } from "vue-router";
+import { useUserStore } from "@/store/modules/user";
+import { removeToken } from "@/utils/storage";
+import { useMessage } from "naive-ui";
+import { useRouter } from "vue-router";
 
-  const router = useRouter();
+const store = useUserStore();
+const router = useRouter();
+const message = useMessage();
 
-  const options = [
-    {
-      label: "个人信息",
-      key: "user info",
-    },
-    {
-      label: "登出",
-      key: "log out",
-    },
-  ];
+const options = [
+  {
+    label: "个人信息",
+    key: "user info",
+  },
+  {
+    label: "登出",
+    key: "log out",
+  },
+];
 
-  const handleSelect = (key: string) => {
-    if (key === "user info") {
-      router.push("/user");
-    } else if (key === "log out") {
-      alert("Log Out");
-    }
-  };
+const handleSelect = (key: string) => {
+  if (key === "user info") {
+    router.push("/user");
+  } else if (key === "log out") {
+    removeToken();
+    store.$state.showAvatar = false;
+    router.push("/");
+    message.info("退出登录");
+  }
+};
 </script>

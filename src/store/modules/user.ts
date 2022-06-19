@@ -1,14 +1,18 @@
 import { login, register } from "@/api/login";
-import { getToken, setToken } from "@/utils/storage";
+import {
+  getCurrentUser,
+  getToken,
+  setCurrentUser,
+  setToken,
+} from "@/utils/storage";
 import { defineStore } from "pinia";
+import { getCurrentUserInfo } from "@/api/user";
 
-export const userStore = defineStore("user", {
+export const useUserStore = defineStore("user", {
   state: () => {
     return {
       token: getToken(),
-      currentUser: null,
-      showLogin: false,
-      showAvatar: getToken() ? true : false,
+      currentUser: getCurrentUser(),
     };
   },
   getters: {},
@@ -31,6 +35,19 @@ export const userStore = defineStore("user", {
       return new Promise((resolve, reject) => {
         register(userInfo)
           .then((res) => {
+            resolve(res);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    async fetchCurrentUser() {
+      return new Promise((resolve, reject) => {
+        getCurrentUserInfo()
+          .then((res) => {
+            this.currentUser = res.data;
+            setCurrentUser(res.data);
             resolve(res);
           })
           .catch((error) => {

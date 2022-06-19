@@ -8,3 +8,11 @@ interface RegisterInfo {
   password: string | null;
   email: string | null;
 }
+
+interface CurrentUser {
+  username: string | null;
+  nickname: string | null;
+  email: string | null;
+  profile: string | null;
+  avatar: string | null;
+}

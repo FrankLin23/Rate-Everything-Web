@@ -18,27 +18,27 @@
 </template>
 
 <script setup lang="ts">
-  import Header from "@/components/Header/index.vue";
-  import Login from "@/components/Login/index.vue";
-  import { userStore } from "@/store/modules/user";
-  import { storeToRefs } from "pinia";
+import Header from "@/components/Header/index.vue";
+import Login from "@/components/Login/index.vue";
+import { storeToRefs } from "pinia";
+import { useSettingStore } from "@/store/modules/setting";
 
-  const store = userStore();
+const store = useSettingStore();
 
-  const { showLogin } = storeToRefs(store);
+const { showLogin } = storeToRefs(store);
 
-  const bodyStyle = {
-    width: "600px",
-  };
+const bodyStyle = {
+  width: "600px",
+};
 </script>
 
 <style scoped lang="scss">
-  .home-container {
-    width: 100vw;
-    height: 100vh;
-  }
-  .content-container {
-    width: 100%;
-    height: calc(100vh - 55px);
-  }
+.home-container {
+  width: 100vw;
+  height: 100vh;
+}
+.content-container {
+  width: 100%;
+  height: calc(100vh - 55px);
+}
 </style>
