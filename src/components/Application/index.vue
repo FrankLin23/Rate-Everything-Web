@@ -8,12 +8,19 @@
 </template>
 
 <script setup lang="ts">
-  import { darkTheme, useOsTheme } from "naive-ui";
-  import { computed } from "vue";
+  import { useSettingStore } from "@/store/modules/setting";
+  import { darkTheme, GlobalTheme } from "naive-ui";
+  import { ref } from "vue";
   import MessageContent from "../MessageContent/index.vue";
 
-  const osThemeRef = useOsTheme();
-  const theme = computed(() => {
-    return osThemeRef.value === "dark" ? darkTheme : null;
+  const settingStore = useSettingStore();
+  const theme = ref<GlobalTheme | null>(null);
+
+  settingStore.$subscribe((mutation, state) => {
+    if (state.darkThemeFlag) {
+      theme.value = darkTheme;
+    } else {
+      theme.value = null;
+    }
   });
 </script>

@@ -6,6 +6,7 @@ export const useSettingStore = defineStore("setting", {
     return {
       showLogin: false,
       showAvatar: !!getToken(),
+      darkThemeFlag: false,
     };
   },
   getters: {},

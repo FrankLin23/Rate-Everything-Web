@@ -63,112 +63,112 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { FormInst, FormRules, useMessage } from "naive-ui";
-import { useUserStore } from "@/store/modules/user";
-import { useSettingStore } from "@/store/modules/setting";
+  import { ref } from "vue";
+  import { FormInst, FormRules, useMessage } from "naive-ui";
+  import { useUserStore } from "@/store/modules/user";
+  import { useSettingStore } from "@/store/modules/setting";
 
-const settingStore = useSettingStore();
-const userStore = useUserStore();
-const message = useMessage();
+  const settingStore = useSettingStore();
+  const userStore = useUserStore();
+  const message = useMessage();
 
-const loginFormRef = ref<FormInst | null>(null);
-const loginForm = ref<LoginInfo>({
-  username: "",
-  password: "",
-});
-
-const registerFormRef = ref<FormInst | null>(null);
-const registerForm = ref<RegisterInfo>({
-  username: null,
-  password: null,
-  email: null,
-});
-
-const loginRules: FormRules = {
-  username: [
-    {
-      required: true,
-      message: "请输入用户名",
-    },
-  ],
-  password: [
-    {
-      required: true,
-      message: "请输入密码",
-    },
-  ],
-};
-
-const registerRules: FormRules = {
-  username: [
-    {
-      required: true,
-      message: "请输入用户名",
-    },
-  ],
-  password: [
-    {
-      required: true,
-      message: "请输入密码",
-    },
-  ],
-  email: [
-    {
-      required: true,
-      message: "请输入邮箱",
-    },
-  ],
-};
-
-const handleLogin = () => {
-  loginFormRef.value?.validate((errors) => {
-    if (!errors) {
-      userStore
-        .login(loginForm.value)
-        .then(() => {
-          settingStore.showLogin = false;
-          settingStore.showAvatar = true;
-          userStore
-            .fetchCurrentUser()
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((error) => console.log(error));
-          message.info("登录成功");
-        })
-        .catch((error) => {
-          message.info("登录失败");
-          console.log(error);
-        });
-    } else {
-      console.log(errors);
-    }
+  const loginFormRef = ref<FormInst | null>(null);
+  const loginForm = ref<LoginInfo>({
+    username: "",
+    password: "",
   });
-};
 
-const handleRegister = () => {
-  registerFormRef.value?.validate((errors) => {
-    if (!errors) {
-      userStore
-        .register(registerForm.value)
-        .then(() => {
-          message.info("注册成功");
-          settingStore.showLogin = false;
-        })
-        .catch((error) => {
-          console.log("login error", error);
-          message.info("注册失败");
-        });
-    } else {
-      console.log(errors);
-    }
+  const registerFormRef = ref<FormInst | null>(null);
+  const registerForm = ref<RegisterInfo>({
+    username: null,
+    password: null,
+    email: null,
   });
-};
+
+  const loginRules: FormRules = {
+    username: [
+      {
+        required: true,
+        message: "请输入用户名",
+      },
+    ],
+    password: [
+      {
+        required: true,
+        message: "请输入密码",
+      },
+    ],
+  };
+
+  const registerRules: FormRules = {
+    username: [
+      {
+        required: true,
+        message: "请输入用户名",
+      },
+    ],
+    password: [
+      {
+        required: true,
+        message: "请输入密码",
+      },
+    ],
+    email: [
+      {
+        required: true,
+        message: "请输入邮箱",
+      },
+    ],
+  };
+
+  const handleLogin = () => {
+    loginFormRef.value?.validate((errors) => {
+      if (!errors) {
+        userStore
+          .login(loginForm.value)
+          .then(() => {
+            settingStore.showLogin = false;
+            settingStore.showAvatar = true;
+            userStore
+              .fetchCurrentUser()
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((error) => console.log(error));
+            message.success("登录成功");
+          })
+          .catch((error) => {
+            message.error("登录失败");
+            console.log(error);
+          });
+      } else {
+        console.log(errors);
+      }
+    });
+  };
+
+  const handleRegister = () => {
+    registerFormRef.value?.validate((errors) => {
+      if (!errors) {
+        userStore
+          .register(registerForm.value)
+          .then(() => {
+            message.info("注册成功");
+            settingStore.showLogin = false;
+          })
+          .catch((error) => {
+            console.log("login error", error);
+            message.info("注册失败");
+          });
+      } else {
+        console.log(errors);
+      }
+    });
+  };
 </script>
 
 <style scoped>
-.card-tabs .n-tabs-nav--bar-type {
-  padding-left: 4px;
-}
+  .card-tabs .n-tabs-nav--bar-type {
+    padding-left: 4px;
+  }
 </style>

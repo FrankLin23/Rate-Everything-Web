@@ -1,10 +1,24 @@
 <template>
   <n-layout class="user-info-container" embeded>
     <n-space justify="center" size="large" style="margin-top: 50px">
-      <div class="user-avatar">
-        <img src="@/assets/logo.png" alt="logo" />
-        <n-button type="primary" @click="changeAvatar">更新头像</n-button>
-      </div>
+      <n-layout>
+        <n-card>
+          <n-space align="center" vertical>
+            <img
+              :src="currentUser.avatar"
+              alt="logo"
+              style="width: 250px; height: 250px"
+            />
+            <n-upload
+              :show-file-list="false"
+              @before-upload="beforeUpload"
+              @change="handleFinish"
+            >
+              <n-button type="primary" size="large">更新头像</n-button>
+            </n-upload>
+          </n-space>
+        </n-card>
+      </n-layout>
       <n-layout>
         <n-card class="user-info-box" title="个人信息">
           <n-form ref="userInfoFormRef" :model="userInfoModel" :rules="rules">
@@ -56,43 +70,55 @@
 </template>
 
 <script setup lang="ts">
-import { FormInst } from "naive-ui";
-import { ref } from "vue";
-import { LockClosedOutline } from "@vicons/ionicons5";
-import { useUserStore } from "@/store/modules/user";
-import { storeToRefs } from "pinia";
+  import { FormInst, UploadFileInfo, useMessage } from "naive-ui";
+  import { ref } from "vue";
+  import { LockClosedOutline } from "@vicons/ionicons5";
+  import { useUserStore } from "@/store/modules/user";
+  import { storeToRefs } from "pinia";
 
-const store = useUserStore();
-const { currentUser } = storeToRefs(store);
+  const message = useMessage();
 
-//TODO
-const changeAvatar = () => {};
+  const store = useUserStore();
+  const { currentUser } = storeToRefs(store);
 
-const userInfoFormRef = ref<FormInst | null>(null);
-const userInfoModel = ref({
-  nickname: currentUser.value.nickname,
-  email: currentUser.value.email,
-  profile: currentUser.value.profile,
-});
-//TODO
-const rules = [{}];
-const updateInfo = () => {};
+  //TODO
+  const beforeUpload = async (data: {
+    file: UploadFileInfo;
+    fileList: UploadFileInfo[];
+  }) => {
+    if (!data.file.file?.type.includes("image")) {
+      message.error("只能上传图片文件，请重新上传！");
+      return false;
+    }
+    return true;
+  };
+  const handleFinish = (file: UploadFileInfo, event?: ProgressEvent) => {};
+
+  const userInfoFormRef = ref<FormInst | null>(null);
+  const userInfoModel = ref({
+    nickname: currentUser.value.nickname,
+    email: currentUser.value.email,
+    profile: currentUser.value.profile,
+  });
+  //TODO
+  const rules = [{}];
+  const updateInfo = () => {};
 </script>
 
 <style scoped>
-.user-info-container {
-  width: 100%;
-}
-.user-avatar {
-  width: 300px;
-  height: 300px;
-  background-color: whitesmoke;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.user-info-box {
-  width: 800px;
-}
+  .user-info-container {
+    width: 100%;
+  }
+  .user-avatar {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .user-info-box {
+    width: 800px;
+  }
 </style>

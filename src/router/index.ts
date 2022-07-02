@@ -4,6 +4,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   {
     path: "/",
     component: () => import("@/views/Home/index.vue"),
+    redirect: "/moment",
     children: [
       {
         path: "/user",
@@ -12,6 +13,10 @@ export const constantRoutes: RouteRecordRaw[] = [
       {
         path: "/404",
         component: () => import("@/views/Error/404.vue"),
+      },
+      {
+        path: "/moment",
+        component: () => import("@/views/Moment/index.vue"),
       },
     ],
   },
