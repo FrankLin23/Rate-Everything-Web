@@ -12,7 +12,7 @@
             <n-upload
               :show-file-list="false"
               @before-upload="beforeUpload"
-              @change="handleFinish"
+              @change="handleChange"
             >
               <n-button type="primary" size="large">更新头像</n-button>
             </n-upload>
@@ -56,7 +56,7 @@
         </n-card>
         <n-card title="账户安全">
           <n-form-item>
-            <n-tag checkable
+            <n-tag checkable @click="updatePassword"
               >修改密码
               <template #icon>
                 <n-icon :component="LockClosedOutline" />
@@ -75,13 +75,13 @@
   import { LockClosedOutline } from "@vicons/ionicons5";
   import { useUserStore } from "@/store/modules/user";
   import { storeToRefs } from "pinia";
+  import { changeAvater } from "@/api/user";
 
   const message = useMessage();
 
   const store = useUserStore();
   const { currentUser } = storeToRefs(store);
 
-  //TODO
   const beforeUpload = async (data: {
     file: UploadFileInfo;
     fileList: UploadFileInfo[];
@@ -92,7 +92,23 @@
     }
     return true;
   };
-  const handleFinish = (file: UploadFileInfo, event?: ProgressEvent) => {};
+  const handleChange = (options: { file: UploadFileInfo }) => {
+    const formData = new FormData();
+    formData.append(options.file.name, options.file.file as File);
+    changeAvater(formData)
+      .then(() => {
+        store
+          .fetchCurrentUser()
+          .then(() => {
+            message.success("更换头像成功");
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => {
+        message.error("更换头像失败！");
+        console.log(error);
+      });
+  };
 
   const userInfoFormRef = ref<FormInst | null>(null);
   const userInfoModel = ref({
@@ -103,6 +119,7 @@
   //TODO
   const rules = [{}];
   const updateInfo = () => {};
+  const updatePassword = () => {};
 </script>
 
 <style scoped>
