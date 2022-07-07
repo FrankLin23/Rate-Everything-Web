@@ -18,6 +18,10 @@ export const constantRoutes: RouteRecordRaw[] = [
         path: "/moment",
         component: () => import("@/views/Moment/index.vue"),
       },
+      {
+        path: "/entertainment",
+        component: () => import("@/views/Pages/Entertainment/index.vue"),
+      },
     ],
   },
 ];

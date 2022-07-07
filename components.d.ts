@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./src/components/Header/index.vue')['default']
     Login: typeof import('./src/components/Login/index.vue')['default']
     MessageContent: typeof import('./src/components/MessageContent/index.vue')['default']
+    MomentCard: typeof import('./src/components/MomentCard/index.vue')['default']
     NAvatar: typeof import('naive-ui')['NAvatar']
     NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']

@@ -38,7 +38,7 @@
   } from "@vicons/ionicons5";
   import { storeToRefs } from "pinia";
   import Avatar from "../Avatar/index.vue";
-  import { useRouter } from "vue-router";
+  import { RouterLink, useRouter } from "vue-router";
   import { useSettingStore } from "@/store/modules/setting";
 
   const router = useRouter();
@@ -59,12 +59,34 @@
   const activeKey = ref<string | null>(null);
   const menuOptions: MenuOption[] = [
     {
-      label: "文娱",
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              path: "/entertainment",
+            },
+          },
+          {
+            default: () => "文娱",
+          }
+        ),
       key: "Entertainment",
       icon: renderIcon(TvIcon),
     },
     {
-      label: "地点",
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              path: "/entertainment",
+            },
+          },
+          {
+            default: () => "地点",
+          }
+        ),
       key: "Destination",
       icon: renderIcon(CompassIcon),
     },
