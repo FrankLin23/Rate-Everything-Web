@@ -16,3 +16,10 @@ interface CurrentUser {
   profile: string | null;
   avatar: string | null;
 }
+
+interface MomentProps {
+  nickname: string;
+  avatar: string;
+  content: string;
+  createdTime: Date;
+}

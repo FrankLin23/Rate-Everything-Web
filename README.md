@@ -13,3 +13,22 @@ This project is Rate Everything Web Application.
 - Axios
 - Scss
 - js-cookie
+
+## File Structure
+
+- `api` Http Request
+  - login
+  - user
+- assets
+- components
+  - `Application`
+  - `Avatar`
+  - `Header`
+  - `Login`
+  - `MessageContent`
+  - `MomentCard`
+- router
+- store
+- types
+- utils
+- views

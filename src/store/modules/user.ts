@@ -21,7 +21,6 @@ export const useUserStore = defineStore("user", {
       return new Promise((resolve, reject) => {
         login(userInfo)
           .then((res) => {
-            console.log("store login", res);
             setToken(res.data);
             this.token = res.data;
             resolve(res);

@@ -131,9 +131,7 @@
             settingStore.showAvatar = true;
             userStore
               .fetchCurrentUser()
-              .then((res) => {
-                console.log(res);
-              })
+              .then()
               .catch((error) => console.log(error));
             message.success("登录成功");
           })
